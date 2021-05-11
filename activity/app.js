@@ -433,3 +433,5 @@ function getRidCid(address) {//A1
 
 }
 
+
+// addderd afeer ransomwarea attack
