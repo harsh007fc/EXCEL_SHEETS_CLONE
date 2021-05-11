@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0px;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        .top_left_block{
+            height:30px;
+            width:25px;
+            background-color: gray;
+        }
+
+        .top_row{
+            height:30px;
+            background-color: lightgreen;
+            display: flex;
+            position:absolute;
+            top:0px;
+            left:25px;
+
+        }
+
+        .left_col{
+            width:25px;
+            border:1px solid red;
+        }
+        .left_col_box{
+            height:30px;
+            background-color: lightgreen;
+            text-align: center;
+            border:1px solid;
+        }
+
+        .col{
+            /* flex: 1;/doesnot worl on flex  */
+            min-width:80px;
+            border:1px solid;
+            min-height:30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .row{
+            display: flex;
+        }
+
+        .grid_container{
+            position:relative;
+        }
+        .grid{
+            position: absolute;
+            top:30px;
+            left:25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid_container">
+        <div class="top_left_block">
+            
+        </div>
+        <div class="top_row">
+            <div class="col"></div>
+        </div>
+        <div class="left_col">
+            
+        </div>
+        <div class="grid">
+            <div class="col"></div>
+        </div>
+       
+    </div>
+    <script>
+
+        
+        let topRow = document.querySelector(".top_row");
+        let strng = "";
+        for(let i = 0 ; i < 26; i++ )
+        {
+            strng += `<div class="col">${String.fromCharCode(65 + i)}</div>`;
+        }
+        topRow.innerHTML = strng;
+
+        let leftCol = document.querySelector(".left_col");
+        let str = "";
+        for(let i = 0; i < 100; i++)
+        {
+            str += `<div class="left_col_box">${i+1}</div>`;
+        }
+        leftCol.innerHTML = str;
+
+        let grid = document.querySelector(".grid")
+            let string = "";
+            for(let i = 0; i < 100 ; i++)
+            {
+                string +=  `<div class="row">`
+                for(let j = 0 ; j < 26 ; j++)
+                {
+                    string += `<div class="col">${i + 1}${String.fromCharCode(65 + j)}</div>`;
+                }
+                string += "</div>";
+            }
+        grid.innerHTML = string;
+        
+
+    </script>
+</body>
+</html>
