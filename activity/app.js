@@ -1,4 +1,4 @@
- let addBtnContainer = document.querySelector(".add_sheet_container");
+let addBtnContainer = document.querySelector(".add_sheet_container");
 let sheetList = document.querySelector(".sheet_list");
 let firstSheet = document.querySelector(".sheet");
 let allCells = document.querySelectorAll(".grid .col");
@@ -17,7 +17,6 @@ let allAlignmentBtns = document.querySelectorAll(".alignment_container>*");
 let formulaInput = document.querySelector(".formulae_box");
 let sheetDB = worksheetDB[0];
 firstSheet.addEventListener("click", handleActiveSheet);
-
 
 
 // create sheets
@@ -79,12 +78,6 @@ for (let i = 0; i < allCells.length; i++) {
         //object ki styling
         //fir ui styling
         //cell ki styling
-        // cell k liye formulae
-        if(cellObj.formula != ""){
-            formulaInput.value = cellObj.formula;
-        }else{
-            formulaInput.value = "";
-        }
 
         // for bold property bold
         if (cellObj.bold == true) {
@@ -337,29 +330,11 @@ for (let i = 0; i < allCells.length; i++) {
         let { rid, cid } = getRidCid(address);
         let cell = document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`);
         let cellObj = sheetDB[rid][cid];
-        if(cellObj.value == cell.innerText){
-            return;
-        }
-        if(cellObj.formula){
-            removeFormula(cellObj,address);
-        }
+        cellObj.value = cell.innerText;
         changeChildrens(cellObj);
 
     })
 }
-
-// for (let i = 0; i < allCells.length; i++) {
-//     allCells[i].addEventListener("keydown", function handleCells() {
-//         let address = addressBar.value;
-//         let { rid, cid } = getRidCid(address);
-//         let cellObj = sheetDB[rid][cid];
-//         if(cellObj.formula){
-
-//             removeFormula(cellObj,address);
-//         }
-
-//     })
-// }
 
 function setUiByFormula(evaluatedVal,rid,cid){
     document.querySelector(`.col[rid="${rid}"][cid="${cid}"]`).innerText = evaluatedVal;
@@ -397,28 +372,17 @@ function evaluateFormula(formula) {
 
 formulaInput.addEventListener("keydown",function (e){
     if(e.key == "Enter" && formulaInput.value != ""){
-        let newFormula = formulaInput.value;
+        let formula = formulaInput.value;
         //get current cell
-        let address = addressBar.value;
-        let { rid, cid } = getRidCid(address);
-        let cellObj = sheetDB[rid][cid];
-        let prevFormula = cellObj.formula;
-        if(prevFormula == newFormula){
-            return;
-        }
-        if(prevFormula != newFormula && prevFormula != "" ){
-            removeFormula(cellObj,address);
-        }
-
-        let evaluatedVal = evaluateFormula(newFormula);
+        let evaluatedVal = evaluateFormula(formula);
         // alert(value);
         //change in ui
-        
-        
+        let address = addressBar.value;
+        let { rid, cid } = getRidCid(address);
         setUiByFormula(evaluatedVal , rid , cid);
         //db-->work
-        setFormula(evaluatedVal,newFormula,rid,cid,address);
-        changeChildrens(cellObj);
+        setFormula(evaluatedVal,formula,rid,cid,address);
+        
     }
 })
 
@@ -456,24 +420,6 @@ function changeChildrens(cellObj){
       changeChildrens(childrenObj);
     }
 }
-function removeFormula(cellObj,address){
-    let formula = cellObj.formula;
-    let formulaTokens = formula.split(" ");
-    // split
-    for(let i = 0; i < formulaTokens.length; i++)
-    {
-        let firstCharOfToken = formulaTokens[i].charCodeAt(0);
-        if(firstCharOfToken >= 65 && firstCharOfToken <= 90){
-            // console.log(formulaTokens[i]);
-            let parentRidCid = getRidCid(formulaTokens[i]);
-            let parentCellObj = sheetDB[parentRidCid.rid][parentRidCid.cid];
-            let children = parentCellObj.children;
-            let index = children.indexOf(address);
-            children.splice(index,1);
-        }
-    }
-    cellObj.formula = "";
-}
 
 // **************************helper function
 
@@ -485,5 +431,3 @@ function getRidCid(address) {//A1
     return { rid, cid };
 
 }
-
-
