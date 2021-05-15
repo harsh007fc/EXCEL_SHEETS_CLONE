@@ -130,6 +130,15 @@ for (let i = 0; i < allCells.length; i++) {
         //for bgcolor
         bgColor.value = cellObj.bgColor;
     })
+    // this is to increse the column height if text overflows
+    allCells[i].addEventListener("keydown",function(e){
+        let obj = allCells[i].getBoundingClientRect();
+        let height = obj.height;
+        let address = addressBar.value;
+        let { rid, cid } = getRidCid(address);
+        let leftCol = document.querySelectorAll(".left_col .left_col_box")[rid];
+        leftCol.style.height = height+"px";
+    })
 }
 
 // to emulate starting click on (0,0) cell
