@@ -15,6 +15,10 @@ let textColor = document.querySelector("#color");
 let bgColor = document.querySelector("#bg_color");
 let allAlignmentBtns = document.querySelectorAll(".alignment_container>*");
 let formulaInput = document.querySelector(".formulae_box");
+let gridContainer = document.querySelector(".grid_container");
+let topLeftBlock = document.querySelector(".top_left_block");
+// let topRow = Document.querySelector(".top_row");
+// let leftCol = Document.querySelector(".left_col");
 let sheetDB = worksheetDB[0];
 firstSheet.addEventListener("click", handleActiveSheet);
 
@@ -138,6 +142,20 @@ for (let i = 0; i < allCells.length; i++) {
         let { rid, cid } = getRidCid(address);
         let leftCol = document.querySelectorAll(".left_col .left_col_box")[rid];
         leftCol.style.height = height+"px";
+    })
+
+
+    gridContainer.addEventListener("scroll",function(e){
+        // console.log(e);
+        // console.log(gridContainer.scrollTop);
+        // console.log(gridContainer.scrollLeft);
+        let top = gridContainer.scrollTop;
+        let left = gridContainer.scrollLeft;
+        topLeftBlock.style.top = top+"px";
+        topRow.style.top = top+"px";
+        leftCol.style.left = left+"px";
+        topLeftBlock.style.left = left+"px";
+        
     })
 }
 
