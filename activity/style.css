@@ -125,7 +125,7 @@ body{
 
 .icon{
     font-size: 1.2rem;
-    color:#2cc42c;
+    color:#218c74;
     
 }
 
@@ -228,6 +228,17 @@ body{
     position: absolute;
     top:30px;
     left:25px;
+}
+
+/* new open and download styling */
+.nod_container{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.new,.open,.download{
+    color:#218c74;
 }
 
 
